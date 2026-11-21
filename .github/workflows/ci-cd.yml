@@ -1,0 +1,25 @@
+
+name: CivicFix CI Pipeline
+
+"on":
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build CivicFix Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t civicfix .
+
+      - name: Verify Docker image
+        run: docker image inspect civicfix
